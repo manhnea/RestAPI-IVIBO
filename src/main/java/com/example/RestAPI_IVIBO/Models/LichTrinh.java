@@ -7,7 +7,7 @@ import java.util.Date;
 public class LichTrinh {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name="CaNhanId")

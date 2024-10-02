@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 public class MucDo {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String tenDuAn;
 

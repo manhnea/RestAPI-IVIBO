@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 public class TienDoDuAn {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String trangThai;
 }
