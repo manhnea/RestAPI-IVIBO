@@ -23,4 +23,5 @@ public class DanhSachDuAnController {
     public ResponseEntity<List<LichTrinh>> get(){
         return  ResponseEntity.ok(lichTrinhRepo.findAll());
     }
+
 }
