@@ -16,7 +16,7 @@ public class CaNhan {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String userId;
 
@@ -33,5 +33,5 @@ public class CaNhan {
     @ManyToOne
     @JoinColumn(name="ChucVuId")
     private ChucVu chucVu;
-
+//comment
 }

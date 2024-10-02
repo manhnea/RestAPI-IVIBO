@@ -13,7 +13,7 @@ import lombok.Setter;
 public class DanhSachDuAn {
         @Id
         @GeneratedValue(strategy= GenerationType.IDENTITY)
-        private int id;
+        private Long id;
 
         private String tenDuAn;
 
