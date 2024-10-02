@@ -17,9 +17,7 @@ public class LichTrinh {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="CaNhanId")
-    private CaNhan caNhanId;
+
 
     private String tieuDe;
 
@@ -27,4 +25,7 @@ public class LichTrinh {
 
     private Date ngayKetThuc;
     private String ghiChu;
+    @ManyToOne
+    @JoinColumn(name="CaNhanId")
+    private CaNhan caNhan;
 }

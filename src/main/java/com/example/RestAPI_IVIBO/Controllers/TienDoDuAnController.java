@@ -1,7 +1,7 @@
 package com.example.RestAPI_IVIBO.Controllers;
 
-import com.example.RestAPI_IVIBO.Models.LichTrinh;
-import com.example.RestAPI_IVIBO.Repositories.LichTrinhRepo;
+import com.example.RestAPI_IVIBO.Models.TienDoDuAn;
+import com.example.RestAPI_IVIBO.Repositories.TienDoDuAnRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/LichTrinh")
-public class LichTrinhController {
+@RequestMapping("/TienDoDuAn")
+public class TienDoDuAnController {
     @Autowired
-    LichTrinhRepo lichTrinhRepo;
-@GetMapping("/get")
-public ResponseEntity<List<LichTrinh>> get(){
-return ResponseEntity.ok(lichTrinhRepo.findAll());
-}
+    TienDoDuAnRepo tienDoDuAnRepo;
+    @GetMapping("/get")
+    public ResponseEntity<List<TienDoDuAn>> get(){
+        return ResponseEntity.ok(tienDoDuAnRepo.findAll());
+    }
 }
