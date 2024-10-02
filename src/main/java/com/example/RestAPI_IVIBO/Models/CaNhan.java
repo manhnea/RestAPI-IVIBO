@@ -33,5 +33,5 @@ public class CaNhan {
     @ManyToOne
     @JoinColumn(name="ChucVuId")
     private ChucVu chucVu;
-
+//comment
 }
