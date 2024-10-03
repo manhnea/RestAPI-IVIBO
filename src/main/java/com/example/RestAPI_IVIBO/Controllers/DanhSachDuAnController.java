@@ -46,7 +46,7 @@ public class DanhSachDuAnController {
         updatedDuAn.setTenDuAn(duAn.getTenDuAn());
         updatedDuAn.setTrangThai(duAn.getTrangThai());
         duAn = (DanhSachDuAn)this.danhSachDuAnRepo.save(updatedDuAn);
-        return new ResponseEntity(duAn, HttpStatus.FORBIDDEN);
+        return new ResponseEntity(duAn, HttpStatus.OK);
     }
 
     @GetMapping({"/trangthai/{id}"})
