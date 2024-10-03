@@ -1,46 +1,57 @@
 package com.example.RestAPI_IVIBO.Controllers;
-
 import com.example.RestAPI_IVIBO.Models.DanhSachDuAn;
 import com.example.RestAPI_IVIBO.Repositories.DanhSachDuAnRepo;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 @RestController
-@RequestMapping("/dsduan")
+@RequestMapping({"/dsduan"})
 public class DanhSachDuAnController {
     @Autowired
     DanhSachDuAnRepo danhSachDuAnRepo;
 
-    @GetMapping("/get")
-    public ResponseEntity<List<DanhSachDuAn>> get() {
-        return ResponseEntity.ok(danhSachDuAnRepo.findAll());
+    public DanhSachDuAnController() {
     }
 
-    @GetMapping("find/{id}")
+    @GetMapping({"/get"})
+    public ResponseEntity<List<DanhSachDuAn>> get() {
+        return ResponseEntity.ok(this.danhSachDuAnRepo.findAll());
+    }
+
+    @GetMapping({"find/{id}"})
     public ResponseEntity<DanhSachDuAn> findById(@PathVariable("id") Long id) {
-        DanhSachDuAn duAn = danhSachDuAnRepo.findById(id).orElseThrow();
+        DanhSachDuAn duAn = (DanhSachDuAn)this.danhSachDuAnRepo.findById(id).orElseThrow();
         return ResponseEntity.ok(duAn);
     }
 
-    @PostMapping("/post")
+    @PostMapping({"/post"})
     public ResponseEntity post(@RequestBody DanhSachDuAn duAn) {
-        DanhSachDuAn savedDuAn = danhSachDuAnRepo.save(duAn);
-        if (savedDuAn == null) {
-            return new ResponseEntity(savedDuAn, HttpStatus.FORBIDDEN);
-        }
-        return ResponseEntity.ok(savedDuAn);
+        DanhSachDuAn savedDuAn = (DanhSachDuAn)this.danhSachDuAnRepo.save(duAn);
+        return savedDuAn == null ? new ResponseEntity(savedDuAn, HttpStatus.FORBIDDEN) : ResponseEntity.ok(savedDuAn);
     }
 
-    @PutMapping("/put/{id}")
+    @PutMapping({"/put/{id}"})
     public ResponseEntity put(@PathVariable("id") Long id, @RequestBody DanhSachDuAn duAn) {
-        DanhSachDuAn updatedDuAn = danhSachDuAnRepo.findById(id).orElseThrow();
+        DanhSachDuAn updatedDuAn = (DanhSachDuAn)this.danhSachDuAnRepo.findById(id).orElseThrow();
         updatedDuAn.setTenDuAn(duAn.getTenDuAn());
         updatedDuAn.setTrangThai(duAn.getTrangThai());
-        duAn = danhSachDuAnRepo.save(updatedDuAn);
+        duAn = (DanhSachDuAn)this.danhSachDuAnRepo.save(updatedDuAn);
         return new ResponseEntity(duAn, HttpStatus.FORBIDDEN);
+    }
+
+    @GetMapping({"/trangthai/{id}"})
+    public ResponseEntity<Set<DanhSachDuAn>> findByTrangThai(@PathVariable("id") Long id) {
+        Set<DanhSachDuAn> setDuAns = this.danhSachDuAnRepo.findDanhSachDuAnByTrangThai(id);
+        return setDuAns == null ? ResponseEntity.ok(new HashSet()) : ResponseEntity.ok(setDuAns);
     }
 }
