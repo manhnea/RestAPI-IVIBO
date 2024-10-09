@@ -16,7 +16,6 @@ public class MucDo {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    private String tenDuAn;
 
     private String mucDo;
 }

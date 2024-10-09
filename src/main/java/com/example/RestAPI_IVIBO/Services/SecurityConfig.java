@@ -12,9 +12,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
+        return
+                httpSecurity.cors().disable().csrf().disable()
                 .authorizeHttpRequests(
                         request -> request
+                                .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/**").permitAll()
                                 .anyRequest().authenticated()
                 ).httpBasic(Customizer.withDefaults())

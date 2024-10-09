@@ -12,6 +12,7 @@ import org.springframework.aot.generate.GenerationContext;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class CaNhan {
 
     @Id
