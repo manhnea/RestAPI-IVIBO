@@ -24,7 +24,7 @@ public class DanhSachCongViec {
     private DanhSachDuAn duAnId;
 
     @ManyToOne
-    @JoinColumn(name="CaNhanId")
+    @JoinColumn(name="UserId")
     private CaNhan caNhan;
 
     @Column(name="NgayBatDau")

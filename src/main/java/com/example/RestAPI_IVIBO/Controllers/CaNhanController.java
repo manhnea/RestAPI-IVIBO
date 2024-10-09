@@ -5,10 +5,12 @@ import com.example.RestAPI_IVIBO.Models.ChucVu;
 import com.example.RestAPI_IVIBO.Repositories.CaNhanRepo;
 import com.example.RestAPI_IVIBO.Repositories.ChucVuRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/CaNhan")
@@ -41,6 +43,15 @@ public class CaNhanController {
         CaNhan updateCaNhan = caNhanRepo.findById(id).get();
         updateCaNhan.setTrangThai(0);
         return ResponseEntity.ok("Xóa thành công");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<CaNhan> login(@RequestParam String userId, @RequestParam String matKhau){
+        List<CaNhan> findCaNhan = caNhanRepo.findCaNhanByUserIdAndMatKhau(userId,matKhau);
+        if(findCaNhan.size()>1){
+            return new ResponseEntity<>(new CaNhan(), HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(findCaNhan.get(0),HttpStatus.OK);
     }
 
 }
