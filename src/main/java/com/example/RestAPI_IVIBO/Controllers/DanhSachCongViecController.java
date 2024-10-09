@@ -12,8 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 @RestController
-@RequestMapping("/dscongviec")
-
+    @RequestMapping("/dscongviec")
+@CrossOrigin
 public class DanhSachCongViecController {
     @Autowired
     DanhSachCongViecRepo danhSachCongViecRepo;
@@ -26,10 +26,10 @@ public class DanhSachCongViecController {
         return ResponseEntity.ok(this.danhSachCongViecRepo.findAll());
     }
 
-    @GetMapping({"find/{id}"})
-    public ResponseEntity<DanhSachCongViec> findById(@PathVariable("id") Long id) {
-        DanhSachCongViec congViec = (DanhSachCongViec)this.danhSachCongViecRepo.findById(id).orElseThrow();
-        return ResponseEntity.ok(congViec);
+    @GetMapping("/gets/{id}")
+    public List<DanhSachCongViec> findDanhSachCongViecbyId(@PathVariable("id") int id) {
+
+        return danhSachCongViecRepo.findDanhSachCongViecById(id);
     }
 
     @PostMapping({"/post"})
