@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface DanhSachChamCongRepo extends JpaRepository<DanhSachChamCong, Long> {
-    @Query(value = "SELECT * FROM danh_sach_cham_cong WHERE id_nhan_vien = ?1 ", nativeQuery = true)
-    DanhSachChamCong findByNhanVienAndThangAndNam(Long idNhanVien);
+    @Query(value = "SELECT * FROM DanhSachChamCong WHERE CaNhanId = ?1", nativeQuery = true)
+    List<DanhSachChamCong> findDanhSachChamCongById(int id);
 }

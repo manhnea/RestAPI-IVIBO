@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/DanhSachChamCong")
@@ -17,9 +18,9 @@ public class DanhSachChamCongController {
     public ResponseEntity<List<DanhSachChamCong>> get(){
         return ResponseEntity.ok(danhSachChamCongRepo.findAll());
     }
-    @GetMapping("/getById/{id}")
-    public ResponseEntity<DanhSachChamCong> getById(Long id){
-        return ResponseEntity.ok(danhSachChamCongRepo.findById(id).get());
+    @GetMapping("/get/{id}")
+    public List<DanhSachChamCong> getById(@PathVariable int id){
+        return danhSachChamCongRepo.findDanhSachChamCongById(id);
     }
     @PostMapping("/add")
     public ResponseEntity<DanhSachChamCong> add(@RequestBody DanhSachChamCong danhSachChamCong){
