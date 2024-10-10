@@ -35,6 +35,7 @@ public class CaNhanController {
         updateCaNhan.setSoDienThoai(caNhan.getSoDienThoai());
         updateCaNhan.setEmail(caNhan.getEmail());
         updateCaNhan.setChucVu(chucVu);
+        updateCaNhan.setImgurl(caNhan.getImgurl());
         updateCaNhan.setTrangThai(1);
         return ResponseEntity.ok(caNhanRepo.save(updateCaNhan));
     }

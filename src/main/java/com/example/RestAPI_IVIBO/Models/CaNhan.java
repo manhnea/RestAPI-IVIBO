@@ -29,6 +29,8 @@ public class CaNhan {
 
     private String soDienThoai;
 
+    private String imgurl;
+
     private int trangThai;
     @ManyToOne
     @JoinColumn(name="ChucVuId")
