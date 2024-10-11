@@ -24,9 +24,8 @@ public class DanhSachChamCong {
     @JoinColumn(name="CaNhanId")
     private CaNhan caNhan ;
 
-    private Date thoiGianBatDau;
+    private Date ThoiGian;
 
-    private Date thoiGianKetThuc;
 
 
 

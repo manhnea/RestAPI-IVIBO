@@ -41,7 +41,6 @@ public class DanhSachChamCongController {
     @PutMapping("/update/{id}")
     public ResponseEntity<DanhSachChamCong> update(@PathVariable Long id, @RequestBody DanhSachChamCong danhSachChamCong){
         DanhSachChamCong danhSachChamCong1 = danhSachChamCongRepo.findById(id).get();
-        danhSachChamCong1.setThoiGianKetThuc(danhSachChamCong.getThoiGianKetThuc());
         return ResponseEntity.ok(danhSachChamCongRepo.save(danhSachChamCong));
     }
     @GetMapping("/chamcong")
@@ -62,8 +61,7 @@ public class DanhSachChamCongController {
             CaNhan caNhan =caNhanRepo.findById(id).orElseThrow();
             danhSachChamCong.setCaNhan(caNhan);
             Date date = new Date();
-            danhSachChamCong.setThoiGianBatDau(date);
-            danhSachChamCong.setThoiGianKetThuc(date);
+            danhSachChamCong.setThoiGian(date);
             danhSachChamCongRepo.save(danhSachChamCong);
             return ResponseEntity.ok(mapToJson(map));
         }else{
