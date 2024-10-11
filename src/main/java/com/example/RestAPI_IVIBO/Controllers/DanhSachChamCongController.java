@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -46,30 +48,33 @@ public class DanhSachChamCongController {
     @GetMapping("/chamcong")
     public ResponseEntity checking(@RequestParam("id") Long id,
                                    @RequestParam("latitude") String latitude,
-                                   @RequestParam("longitude") String longitude ){
+                                   @RequestParam("longitude") String longitude) {
         Double dLatitude = Double.parseDouble(latitude);
         Double dLongitude = Double.parseDouble(longitude);
-        double currentDistance = haversineDistance(dLatitude,dLongitude,targetLatitude,targetLongtitude);
+        double currentDistance = haversineDistance(dLatitude, dLongitude, targetLatitude, targetLongtitude);
         Map<String, String> map = new HashMap<>();
 
-        // Convert to JSON
-        map.put("time",Instant.now().toString());
-        if(Math.abs(currentDistance)<=targetDistance){
-            map.put("status","true");
-            //Diem danh tren DB
+        // Get the current time in Vietnam's timezone
+        ZonedDateTime vietnamTime = ZonedDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        map.put("time", vietnamTime.toString());
+
+        if (Math.abs(currentDistance) <= targetDistance) {
+            map.put("status", "true");
+            // Record attendance in the database
             DanhSachChamCong danhSachChamCong = new DanhSachChamCong();
-            CaNhan caNhan =caNhanRepo.findById(id).orElseThrow();
+            CaNhan caNhan = caNhanRepo.findById(id).orElseThrow();
             danhSachChamCong.setCaNhan(caNhan);
-            Date date = new Date();
-            danhSachChamCong.setThoiGian(date);
+            // Set the time with the current Vietnam time
+            danhSachChamCong.setThoiGian(Date.from(vietnamTime.toInstant()));
             danhSachChamCongRepo.save(danhSachChamCong);
             return ResponseEntity.ok(mapToJson(map));
-        }else{
-            //Neu khong du gan
-            map.put("status","false");
+        } else {
+            // If not close enough
+            map.put("status", "false");
             return ResponseEntity.ok(map);
         }
     }
+
 
     public static double haversineDistance(double lat1, double lon1, double lat2, double lon2) {
         double R = 6371; // Radius of the Earth in kilometers
