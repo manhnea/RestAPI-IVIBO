@@ -30,8 +30,8 @@ public class LichTrinhController {
     }
 
     @GetMapping({"find/{id}"})
-    public ResponseEntity<LichTrinh> findById(@PathVariable("id") Long id) {
-        LichTrinh lichTrinh = (LichTrinh)this.lichTrinhRepo.findById(id).orElseThrow();
+    public ResponseEntity<List<LichTrinh>> findById(@PathVariable("id") Long id) {
+        List<LichTrinh> lichTrinh = this.lichTrinhRepo.findLichTrinhByCaNhanId(id);
         return ResponseEntity.ok(lichTrinh);
     }
 
@@ -53,9 +53,4 @@ public class LichTrinhController {
         return new ResponseEntity(lichTrinh, HttpStatus.OK);
     }
 
-    @GetMapping({"/canhan/{id}"})
-    public ResponseEntity<Set<LichTrinh>> findByTrangThai(@PathVariable("id") Long id) {
-        Set<LichTrinh> lichTrinhSet = this.lichTrinhRepo.findLichTrinhByCaNhanId(id);
-        return lichTrinhSet == null ? ResponseEntity.ok(new HashSet()) : ResponseEntity.ok(lichTrinhSet);
-    }
 }
