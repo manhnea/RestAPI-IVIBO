@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 @Repository
 public interface CaNhanRepo extends JpaRepository<CaNhan, Long> {
+    @Query("SELECT MAX(c.id) FROM CaNhan c")
+    Long findMaxId();
     @Query(value = "SELECT * FROM CaNhan WHERE UserId = :userId AND MatKhau = :matKhau", nativeQuery = true)
     List<CaNhan> findCaNhanByUserIdAndMatKhau(@Param("userId") String userId, @Param("matKhau") String matKhau);
 

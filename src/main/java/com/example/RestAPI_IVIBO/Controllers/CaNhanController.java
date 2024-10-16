@@ -24,7 +24,18 @@ public class CaNhanController {
         return ResponseEntity.ok(caNhanRepo.findAll());
     }
     @PostMapping("/addCaNhan")
-    public ResponseEntity<CaNhan> addCaNhan(@RequestBody CaNhan caNhan){
+    public ResponseEntity<CaNhan> addCaNhan(@RequestBody CaNhan caNhan) {
+        // Retrieve the maximum id from the repository
+        Long maxId = caNhanRepo.findMaxId(); // You'll need to implement this method in your repository
+
+        // Increment the id by 1
+        if (maxId != null) {
+            caNhan.setId(maxId + 1);
+        } else {
+            caNhan.setId(1L); // If there are no records, start with 1
+        }
+
+        caNhan.setUserId("NV" + caNhan.getId());
         return ResponseEntity.ok(caNhanRepo.save(caNhan));
     }
     @PutMapping("/updateCaNhan/{id}")
