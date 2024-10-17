@@ -54,6 +54,7 @@ public class CaNhanController {
     public ResponseEntity<String> deleteCaNhan(@PathVariable Long id){
         CaNhan updateCaNhan = caNhanRepo.findById(id).get();
         updateCaNhan.setTrangThai(0);
+        caNhanRepo.save(updateCaNhan);
         return ResponseEntity.ok("Xóa thành công");
     }
 
