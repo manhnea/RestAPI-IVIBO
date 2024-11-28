@@ -51,9 +51,10 @@ public class CaNhanController {
         return ResponseEntity.ok(caNhanRepo.save(updateCaNhan));
     }
     @PutMapping("/deleteCaNhan/{id}")
-    public ResponseEntity<String> deleteCaNhan(@PathVariable Long id, @RequestBody CaNhan caNhan){
+    public ResponseEntity<String> deleteCaNhan(@PathVariable Long id){
         CaNhan updateCaNhan = caNhanRepo.findById(id).get();
         updateCaNhan.setTrangThai(0);
+        caNhanRepo.save(updateCaNhan);
         return ResponseEntity.ok("Xóa thành công");
     }
 
